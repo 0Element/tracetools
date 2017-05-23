@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="toast-container" class="toast-top-center" aria-live="polite" role="alert">
+    {% for msg in messages %}
+    <div class="toast message-container toast-{{ msg.level_tag }}">
+      <button type="button" class="toast-close-button" role="button">×</button>
+      <div class="toast-message">{{ msg.message }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="content">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+        <div class="hpanel">
+          <div class="panel-heading">
+            &zwnj;
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <form id="LookUpIpForm" name="LookUpIpForm" autocomplete="off" method="post" action="/ip-lookup/">
+                {% csrf_token %}
+                <div class="form-group col-xs-12 col-sm-12 col-md-10 col-lg-10">
+
+                  <div class="form-group">
+
+                    <div class="input-group"><span class="input-group-addon"><i class="fa fa-globe" aria-hidden="true" id="input_icon"></i></span>
+                      <input id="id_ip" autofocus type="text" name="ip" value="{{ field.value|default:'' }}" class="form-control{% if field.errors %} error{% endif %}" required />
+                    </div>
+
+                    {% include "_blocks/field_errors.html" with errors=field.errors %}
+
+                  </div>
+
+                  {#% include "_blocks/form.html" with form=form theme='awesome' autofocus=True %#}
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-7 col-lg-7">
+                  <button type="submit" class="btn btn-outline btn-success m-r">Search</button>
+                  <button type="reset" class="btn btn-outline btn-default" id="reset_button" data-input-id="id_ip">Reset</button>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              {% if result %}
+              <div class="m-t">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                  <div class="hpanel hgreen">
+                    <div class="panel-body">
+                      <div class="stats-title pull-left">
+                        <h5>Country</h5>
+                      </div>
+                      <div class="stats-icon pull-right">
+                        <i class="pe-7s-world fa-2x"></i>
+                      </div>
+                      <div class="m-t-xl">
+                        <span class="text-success break-all">{{ result.country|default:'Unknown' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                  <div class="hpanel hblue">
+                    <div class="panel-body">
+                      <div class="stats-title pull-left">
+                        <h5>City</h5>
+                      </div>
+                      <div class="stats-icon pull-right">
+                        <i class="pe-7s-world fa-2x"></i>
+                      </div>
+                      <div class="m-t-xl">
+                        <span class="text-info break-all">{{ result.city|default:'Unknown' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                  <div class="hpanel hnavyblue">
+                    <div class="panel-body">
+                      <div class="stats-title pull-left">
+                        <h5>Lat - Long</h5>
+                      </div>
+                      <div class="stats-icon pull-right">
+                        <i class="pe-7s-world fa-2x"></i>
+                      </div>
+                      <div class="m-t-xl">
+                        <span class="text-primary break-all">{{ result.lat }} {{ result.long }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="border-right border-left">
+                    <section id="map">
+                      <div id="map1" style="height: 300px;"></div>
+                    </section>
+                  </div>
+                </div>
+                <div class="table-responsive col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-0 p-r-0 m-t-sm">
+                  <table cellpadding="1" cellspacing="1" class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold">
+                            <i class="fa fa-globe m-r"></i>
+                             Country
+                          </span>
+                        </td>
+                        <td>{{ result.country|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold">
+                            <i class="fa fa-globe m-r"></i>
+                             City
+                            </span>
+                        </td>
+                        <td>{{ result.city|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold nowrap">
+                            <i class="fa fa-globe m-r"></i>
+                             Region
+                          </span>
+                        </td>
+                        <td>{{ result.region|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold">
+                            <i class="fa fa-globe m-r"></i>
+                             Latitude
+                          </span>
+                        </td>
+                        <td>{{ result.lat|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold">
+                            <i class="fa fa-globe m-r"></i>
+                             Longitude
+                          </span>
+                        </td>
+                        <td>{{ result.long|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold">
+                            <i class="fa fa-globe m-r"></i>
+                             Provider
+                          </span>
+                        </td>
+                        <td>{{ result.provider|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="text-primary font-bold">
+                            <i class="fa fa-globe m-r"></i>
+                             Provider info
+                          </span>
+                        </td>
+                        <td>{{ result.provider_info|default:'Unknown' }}</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="ip-map" style="width: 100%;height:300px;"></div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKdFvxJdXLFrQXdbsPVfFrlSit-6_WTIk"></script>
+
+  {% if result %}
+  <script>
+    var LAT = '{{ result.lat }}';
+    var LONG = '{{ result.long }}';
+  </script>
+  <script type="text/javascript" src="/static/js/services/toolset/ip_lookup/map.js"></script>
+  {% endif %}
+</body>
+
+</html>

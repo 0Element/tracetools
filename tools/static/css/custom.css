@@ -1,0 +1,37 @@
+/*------------------------------------------------------------------
+
+[Custom Stylesheet]
+
+
+Last change:	03/25/2013
+Assigned to:	You
+
+-------------------------------------------------------------------*/
+
+li.field-error {
+  list-style-type: none !important;
+  margin-left: -40px;
+}
+
+i.icon-2 {
+  font-size: 2em;
+}
+
+.mx-result-block , .ns-result-block{
+  border: 1px solid #EEE;
+  margin-bottom: 25px;
+}
+
+.ns-result-block {
+  border-top: 2px solid #ff9900;
+  vertical-align: middle;
+}
+
+.ns-result-text{
+  margin: 0;
+  margin-top: 5px;
+}
+
+div.panel.col-md-12 {
+  padding: 0;
+}

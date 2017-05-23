@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="widget stacked">
+  <div class="widget-header">
+    <h3>Email Header Analyzer</h3>
+  </div>
+  <div class="widget-content">
+    <form name="analyzeEmailHeaderForm" autocomplete="off" method="post" action="/email-headers/">
+      {% csrf_token %}
+      <div class="form-group col-md-12">
+          <p class="help-block">
+            What to do: Paste the headers in the box below,then click "Analyze" and you will see the results below.
+          </p>
+          <textarea id="id_headers" autofocus name="headers" class="form-control{% if field.errors %} error{% endif %}" required >{{ field.value|default:'' }}</textarea>
+          {% if form.domain.errors %}
+          <ol>
+            {% for error in form.domain.errors %}
+            <li class="field-error"><strong class="text-danger">{{ error|escape }}</strong></li>
+            {% endfor %}
+          </ol>
+          {% endif %}
+      </div>
+      <div class="form-group col-xs-12 col-sm-12 col-md-7 col-lg-7">
+        <button type="submit" class="btn btn-outline btn-success">Search</button>
+        <button type="reset" class="btn btn-outline btn-default" id="reset_button" data-input-id="id_domain">Reset</button>
+      </div>
+    </form>
+
+    {% if not result %}
+        {% include 'email_tools/email_headers_help.html' %}
+    {% else %}
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+      <div class="table-responsive">
+        <table cellpadding="1" cellspacing="1" class="table">
+          <thead>
+          <tr>
+              <th width="30%">Header Name</th>
+              <th>Email Value</th>
+          </tr>
+          </thead>
+          <tbody>
+            {% for h in result|dictsort:'order' %}
+                <tr>
+                    <td>
+                        <a>{{ h.key }}</a>
+                    </td>
+                    <td>{{ h.value }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

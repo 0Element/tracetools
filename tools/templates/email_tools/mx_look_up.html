@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="widget stacked">
+  <div class="widget-header">
+    <h3>MX Lookup</h3>
+  </div>
+  <div class="widget-content">
+    <form name="MxForm" autocomplete="off" method="post" action="/mx-lookup/">
+      {% csrf_token %}
+      <div class="form-group col-xs-12 col-sm-12 col-md-10 col-lg-10">
+        <div class="input-group {% if form.domain.errors %}has-error{% endif %}"><span class="input-group-addon"><i class="icon-globe" aria-hidden="true" id="input_icon"></i></span>
+          <input id="id_domain" autofocus type="url" name="domain" value="{{ form.domain.value|default:'' }}" class="form-control" />
+        </div>
+        {% if form.domain.errors %}
+        <ol>
+          {% for error in form.domain.errors %}
+          <li class="field-error"><strong class="text-danger">{{ error|escape }}</strong></li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+        <p class="help-block">
+          {{ form.domain.help_text }}
+        </p>
+      </div>
+      <div class="form-group col-xs-12 col-sm-12 col-md-7 col-lg-7">
+        <button type="submit" class="btn btn-outline btn-success ">Search</button>
+        <button type="reset" class="btn btn-outline btn-default" id="reset_button" data-input-id="id_domain">Reset</button>
+      </div>
+    </form>
+
+    {% if result %}
+      {% for mx in result|dictsort:'priority' %}
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="panel-body mx-result-block">
+          <div class="col-xs-10">
+            <h5 class="">{{ mx.server }}</h5>
+          </div>
+          <div class="col-xs-2 ">
+            <i class="icon-sitemap icon-2"></i>
+          </div>
+          <div class="col-xs-12">
+            <h5 class="text-success">{{ mx.ip }}</h5>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

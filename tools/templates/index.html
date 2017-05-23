@@ -1,0 +1,199 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Tracetools</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/ui-lightness/jquery-ui-1.10.0.custom.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/base-admin-3.css' %}" rel="stylesheet">
+  <link href="{% static 'css/base-admin-3-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/pages/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+  {% block extra_css %}{% endblock extra_css %}
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'home' %}">Tracetools</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="subnavbar visible-sm visible-xs">
+    <div class="subnavbar-inner">
+      <div class="container">
+        <a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="icon-reorder"></i>
+        </a>
+
+        <div class="collapse subnav-collapse">
+          <ul class="mainnav">
+
+            <li class="{% if '/email-headers' in request.path %}active{% endif %}">
+              <a href="{% url 'email-headers' %}">
+                <span>Email Header Analyzer</span>
+              </a>
+            </li>
+
+            <li class="{% if '/email-abuse-info' in request.path %}active{% endif %}">
+              <a href="{% url 'email-abuse-info' %}">
+                <span>Abuse Email Lookup</span>
+              </a>
+            </li>
+
+            <li class="{% if '/mx-lookup' in request.path %}active{% endif %}">
+              <a href="{% url 'mx-lookup' %}">
+                <span>MX Lookup</span>
+              </a>
+            </li>
+
+            <li class="{% if '/ip-lookup' in request.path %}active{% endif %}">
+              <a href="{% url 'ip-lookup' %}">
+                <span>Look up IP address</span>
+              </a>
+            </li>
+
+            <li class="{% if '/who-is' in request.path %}active{% endif %}">
+              <a href="{% url 'who-is' %}">
+                <span>Reverse Whois Lookup</span>
+              </a>
+            </li>
+
+            <li class="{% if '/http-headers' in request.path %}active{% endif %}">
+              <a href="{% url 'http-headers' %}">
+                <span>Get HTTP Headers Tool</span>
+              </a>
+            </li>
+
+            <li class="{% if '/dns-sec' in request.path %}active{% endif %}">
+              <a href="{% url 'dns-sec' %}">
+                <span>DNSsec Tool</span>
+              </a>
+            </li>
+
+            <li class="{% if '/ns-lookup' in request.path %}active{% endif %}">
+              <a href="{% url 'ns-lookup' %}">
+                <span>Reverse NS Tool</span>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+        <!-- /.subnav-collapse -->
+
+      </div>
+      <!-- /container -->
+
+    </div>
+    <!-- /subnavbar-inner -->
+
+  </div>
+  <!-- /subnavbar -->
+
+
+  <div class="main">
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-3 hidden-sm hidden-xs">
+          <div class="list-group">
+            <a href="{% url 'email-headers' %}" class="list-group-item {% if '/email-headers' in request.path %}active{% endif %}">
+              Email Header Analyzer
+            </a>
+            <a href="{% url 'email-abuse-info' %}" class="list-group-item {% if '/email-abuse-info' in request.path %}active{% endif %}">
+              Abuse Email Lookup
+            </a>
+            <a href="{% url 'mx-lookup' %}" class="list-group-item {% if '/mx-lookup' in request.path%}active{% endif %}">
+              MX Lookup
+            </a>
+            <a href="{% url 'ip-lookup' %}" class="list-group-item {% if '/ip-lookup' in request.path %}active{% endif %}">
+              Look up IP address
+            </a>
+            <a href="{% url 'who-is' %}" class="list-group-item {% if '/who-is' in request.path %}active{% endif %}">
+              Reverse Whois Lookup
+            </a>
+            <a href="{% url 'http-headers' %}" class="list-group-item {% if '/http-headers' in request.path %}active{% endif %}">
+              Get HTTP Headers Tool
+            </a>
+            <a href="{% url 'dns-sec' %}" class="list-group-item {% if '/dns-sec' in request.path %}active{% endif %}">
+              DNSsec Tool
+            </a>
+            <a href="{% url 'ns-lookup' %}" class="list-group-item {% if '/ns-lookup' in request.path %}active{% endif %}">
+              Reverse NS Tool
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-9 col-sm-12 col-xs-12">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+      <!-- /row -->
+
+    </div>
+    <!-- /container -->
+
+  </div>
+  <!-- /main -->
+
+
+
+  <div class="footer">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div id="footer-copyright" class="col-md-6">
+          &copy; 2017 Tracetools
+        </div>
+        <!-- /span6 -->
+
+        <div id="footer-terms" class="col-md-6">
+          Sponsored by <a href="#" target="_blank">Zero Element, Inc</a>
+        </div>
+        <!-- /.span6 -->
+
+      </div>
+      <!-- /row -->
+
+    </div>
+    <!-- /container -->
+
+  </div>
+  <!-- /footer -->
+
+
+
+
+
+  <!-- Le javascript
+================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="{% static 'js/libs/jquery-1.9.1.min.js' %} "></script>
+  <script src="{% static 'js/libs/jquery-ui-1.10.0.custom.min.js' %} "></script>
+  <script src="{% static 'js/libs/bootstrap.min.js' %} "></script>
+  <script src="{% static 'js/plugins/flot/jquery.flot.js' %} "></script>
+  <script src="{% static 'js/plugins/flot/jquery.flot.pie.js' %} "></script>
+  <script src="{% static 'js/plugins/flot/jquery.flot.resize.js' %} "></script>
+  <script src="{% static 'js/Application.js' %} "></script>
+  <script src="{% static 'js/charts/area.js' %} "></script>
+  <script src="{% static 'js/charts/donut.js' %} "></script>
+  {% block extra_js %}{% endblock extra_js %}
+</body>
+
+</html>
