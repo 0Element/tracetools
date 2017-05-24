@@ -28,9 +28,6 @@ rel = lambda x: os.path.join(BASE_DIR, x)
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [

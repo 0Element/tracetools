@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="col-md-10">
+  <div class="widget stacked">
+    <div class="widget-content">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3 class="text-muted">Your IP address:</h3>
+        <h2><strong>{{user_ip}}</strong></h2>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div id="map1" style="height: 300px; width: 100%; background: grey;"></div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="table-responsive">
+          <table cellpadding="1" cellspacing="1" class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <strong class="text-primary">
+                    <i class="icon-globe m-r"></i>
+                     Country
+                  </strong>
+                </td>
+                <td>{{ user_info.country|default:'Unknown' }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong class="text-primary">
+                    <i class="icon-globe m-r"></i>
+                     OS
+                  </strong>
+                </td>
+                <td>{{ user_agent.os.family|default:'Unknown' }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong class="text-primary">
+                    <i class="icon-globe m-r"></i>
+                     Browser
+                  </strong>
+                </td>
+                <td>{{ user_agent.user_agent.family|default:'Unknown' }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong class="text-primary">
+                    <i class="icon-globe m-r"></i>
+                     Provider
+                  </strong>
+                </td>
+                <td>{{ user_info.provider|default:'Unknown' }}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock%}
+
+{% block extra_js %}
+  {% if user_info%}
+<script>
+  var LAT = '{{ user_info.lat }}';
+  var LONG = '{{ user_info.long }}';
+</script>
+<script type="text/javascript" src="{% static 'js/ip_lookup/map.js'%}"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAPS_KEY}}&callback=initMap">
+  </script>
+  {% endif %}
+{% endblock extra_js %}

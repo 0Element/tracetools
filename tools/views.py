@@ -2,16 +2,29 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, TemplateView
 
 from utilities.mixins import FormInvalidRenderMixin, RateLimitMixin
 from .forms import DomainForm, IPForm, HeadersForm, IPorDomainForm
 from .utils import (parse_email_header, get_abuse_tool, get_mx_lookup_tool, get_dns_black_list_tool,
-                    get_http_headers, get_dnssec_tool, get_ip_info, get_who_is, get_ns_tool)
+                    get_http_headers, get_dnssec_tool, get_ip_info, get_who_is, get_ns_tool, get_client_ip )
 
-class HomePage(TemplateView):
-    template_name = 'index.html'
+
+from ua_parser import user_agent_parser
+import pprint
+def HomePage(request):
+    template_name = 'home.html'
+    ip = ''
+    info = get_ip_info('94.158.33.177')
+    ua = request.META.get('HTTP_USER_AGENT')
+    pp = pprint.PrettyPrinter(indent=4)
+    parsed_string_ua = user_agent_parser.Parse(ua)
+    pp.pprint(parsed_string_ua)
+    user_agent_parser.Parse(request.META.get('HTTP_USER_AGENT'))
+
+    return render(request, 'home.html', {"user_ip": ip , 'user_info': info, 'user_agent': parsed_string_ua})
 
 class EmailHeadersView(FormInvalidRenderMixin, RateLimitMixin, FormView):
     """
