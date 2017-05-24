@@ -16,8 +16,8 @@ from ua_parser import user_agent_parser
 import pprint
 def HomePage(request):
     template_name = 'home.html'
-    ip = ''
-    info = get_ip_info('94.158.33.177')
+    ip = get_client_ip(request)
+    info = get_ip_info(ip)
     ua = request.META.get('HTTP_USER_AGENT')
     pp = pprint.PrettyPrinter(indent=4)
     parsed_string_ua = user_agent_parser.Parse(ua)
