@@ -1,347 +1,273 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <div id="toast-container" class="toast-top-center" aria-live="polite" role="alert">
-    {% for msg in messages %}
-    <div class="toast message-container toast-{{ msg.level_tag }}">
-      <button type="button" class="toast-close-button" role="button">×</button>
-      <div class="toast-message">{{ msg.message }}</div>
-    </div>
-    {% endfor %}
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="widget stacked">
+  <div class="widget-header">
+    <h3>Reverse Whois Lookup</h3>
   </div>
-  <div class="content">
-      <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
-              <div class="hpanel">
-                  <div class="panel-heading">
-                      &zwnj;
-                  </div>
-                  <div class="panel-body">
-                      <div class="row">
-                          <form id="WhoIsForm" name="WhoIsForm" autocomplete="off" method="post" action="{% url 'who-is'%}">
-                              {% csrf_token %}
-                              <div class="form-group col-xs-12 col-sm-12 col-md-10 col-lg-10">
-                                <div class="form-group">
-                                  <div class="input-group"><span class="input-group-addon"><i class="fa fa-globe" aria-hidden="true" id="input_icon"></i></span>
-                                      <input id="id_ip_or_domain" autofocus type="text" name="ip_or_domain" value="{{ form.ip_or_domain.value|default:'' }}" class="form-control{% if field.errors %} error{% endif %}" required />
-                                  </div>
-                                  <p>{{ form.ip_or_domain.errors }}</p>
-
-                                    {% include "_blocks/field_errors.html" with errors=field.errors %}
-
-                                </div>
-                                  {#% include "_blocks/form.html" with form=form theme='awesome' autofocus=True %#}
-                              </div>
-                              <div class="form-group col-xs-12 col-sm-12 col-md-7 col-lg-7">
-                                  <button type="submit" class="btn btn-outline btn-success m-r">Search</button>
-                                  <button type="reset" class="btn btn-outline btn-default" id="reset_button"
-                                          data-input-id="id_ip_or_domain">Reset</button>
-                              </div>
-                          </form>
-                      </div>
-                      {% if result %}
-                          <div class="row m-t">
-                              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                                  <div class="hpanel hgreen">
-                                      <div class="panel-body">
-                                          <div class="stats-title pull-left">
-                                              <h5>Country</h5>
-                                          </div>
-                                          <div class="stats-icon pull-right">
-                                              <i class="pe-7s-world fa-4x"></i>
-                                          </div>
-                                          <div class="m-t-xl">
-                                              <span class="text-success">
-                                                  {% if result.country %}
-                                                      <div class="break-all">{{ result.country }}</div>
-                                                  {% else %}
-                                                      <div class="break-all">{{ result.country_code }}</div>
-                                                  {% endif %}
-                                              </span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                                  <div class="hpanel hblue">
-                                      <div class="panel-body">
-                                          <div class="stats-title pull-left">
-                                              <h5>City</h5>
-                                          </div>
-                                          <div class="stats-icon pull-right">
-                                              <i class="pe-7s-world fa-4x"></i>
-                                          </div>
-                                          <div class="m-t-xl">
-                                              <span class="text-info break-all">{{ result.city|default:'Unknown' }}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                                  <div class="hpanel hnavyblue">
-                                      <div class="panel-body">
-                                          <div class="stats-title pull-left">
-                                              <h5>IP address</h5>
-                                          </div>
-                                          <div class="stats-icon pull-right">
-                                              <i class="pe-7s-world fa-4x"></i>
-                                          </div>
-                                          <div class="m-t-xl">
-                                              <span class="text-primary break-all">{{ result.ip }}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                  <div class="border-right border-left">
-                                      <section id="map">
-                                          <div id="map1" style="height: 300px;"></div>
-                                      </section>
-                                  </div>
-                              </div>
-                              <div class="table-responsive col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-0 p-r-0 m-t-sm">
-                                  <table cellpadding="1" cellspacing="1"
-                                         class="table">
-                                      <thead>
-                                      <tr>
-                                          <th></th>
-                                          <th></th>
-                                          <th width="30%"></th>
-                                      </tr>
-                                      </thead>
-                                      <tbody>
-                                      <tr>
-                                          <td width="70%">
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-globe m-r"></i> Country
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {% if result.country %}
-                                                  {{ result.country }} ({{ result.country_code }})
-                                              {% else %}
-                                                  {{ result.country_code|default:'Unknown' }}
-                                              {% endif %}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-calendar m-r"></i> Date
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.date|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-sitemap m-r"></i> IP address
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.ip|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-object-group m-r"></i> Abstract Syntax Notation
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.asn|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-object-group m-r"></i>  Registration Notation
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.asnr|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-object-group m-r"></i> Domain Notation
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.asncidr|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-calendar m-r"></i> Updated
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.updated|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-legal m-r"></i> Handle
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.handle|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-newspaper-o m-r"></i> Description
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.description|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-info-circle m-r"></i> Postal
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.postal_code|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-info-circle m-r"></i> Address
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.address|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-globe m-r"></i> City
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.city|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-quote-left m-r"></i> Name
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.name|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-calendar m-r"></i> Created
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.created|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-globe m-r"></i> State
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.state|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-object-ungroup m-r"></i> Range of Ip
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.ip_range|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <span class="text-primary font-bold">
-                                                  <i class="fa fa-database m-r"></i> Classless Inter-Domain Routing
-                                              </span>
-                                              <small class="font-trans"></small>
-                                          </td>
-                                          <td>
-                                              {{ result.cidr|default:'Unknown' }}
-                                          </td>
-                                          <td></td>
-                                      </tr>
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
-                      {% endif %}
-                  </div>
-              </div>
-          </div>
+  <div class="widget-content">
+    <form name="WhoIsForm" autocomplete="off" method="post" action="{% url 'who-is'%}">
+      {% csrf_token %}
+      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="input-group {% if form.ip_or_domain.errors %}has-error{% endif %}"><span class="input-group-addon"><i class="icon-globe" aria-hidden="true" id="input_icon"></i></span>
+          <input id="id_ip_or_domain" autofocus type="text" name="ip_or_domain" value="{{ form.ip_or_domain.value|default:'' }}" class="form-control" />
+        </div>
+        {% if form.ip_or_domain.errors %}
+        <ol>
+          {% for error in form.ip_or_domain.errors %}
+          <li class="field-error"><strong class="text-danger">{{ error|escape }}</strong></li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+        <p class="help-block">
+          {{ form.ip_or_domain.help_text }}
+        </p>
       </div>
+      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="submit" class="btn btn-outline btn-success">Search</button>
+        <button type="reset" class="btn btn-outline btn-default" id="reset_button" data-input-id="id_ip_or_domain">Reset</button>
+      </div>
+    </form>
+
+    {% if result %}
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div class="panel-body ns-result-block">
+        <div class="col-xs-9">
+          <h5 class="ns-result-text"><strong>Country</strong></h5>
+        </div>
+        <div class="col-xs-3 ">
+          <i class="icon-compass text-danger icon-2 pull-right"></i>
+        </div>
+        <div class="col-xs-9">
+          <span class="text-muted break-all">
+            {% if result.country %}
+                {{ result.country }}
+            {% else %}
+                {{ result.country_code }}
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div class="panel-body ns-result-block">
+        <div class="col-xs-9">
+          <h5 class="ns-result-text"><strong>City</strong></h5>
+        </div>
+        <div class="col-xs-3 ">
+          <i class="icon-compass text-danger icon-2 pull-right"></i>
+        </div>
+        <div class="col-xs-9">
+          <span class="text-muted break-all">{{ result.city|default:'Unknown' }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div class="panel-body ns-result-block">
+        <div class="col-xs-9">
+          <h5 class="ns-result-text"><strong>IP address</strong></h5>
+        </div>
+        <div class="col-xs-3 ">
+          <i class="icon-compass text-danger icon-2 pull-right"></i>
+        </div>
+        <div class="col-xs-9">
+          <span class="text-muted break-all">{{ result.ip }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="table-responsive">
+        <table cellpadding="1" cellspacing="1" class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Country
+                </strong>
+              </td>
+              <td>
+                {% if result.country %}
+                    {{ result.country }} ({{ result.country_code }})
+                {% else %}
+                    {{ result.country_code|default:'Unknown' }}
+                {% endif %}
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Date
+                 </strong>
+              </td>
+              <td>{{ result.date|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary nowrap">
+                  <i class="icon-globe m-r"></i>
+                   IP address
+                </strong>
+              </td>
+              <td>{{ result.ip|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Abstract Syntax Notation
+                </strong>
+              </td>
+              <td>{{ result.asn|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Registration Notation
+                </strong>
+              </td>
+              <td>{{ result.asnr|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Domain Notation
+                </strong>
+              </td>
+              <td>{{ result.asncidr|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Updated
+                </strong>
+              </td>
+              <td>{{ result.updated|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Handle
+                </strong>
+              </td>
+              <td>{{ result.handle|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Description
+                </strong>
+              </td>
+              <td>{{ result.description|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Postal
+                </strong>
+              </td>
+              <td>{{ result.postal_code|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Address
+                </strong>
+              </td>
+              <td>{{ result.address|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   City
+                </strong>
+              </td>
+              <td>{{ result.city|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Name
+                </strong>
+              </td>
+              <td>{{ result.name|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Created
+                </strong>
+              </td>
+              <td>{{ result.created|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   State
+                </strong>
+              </td>
+              <td>{{ result.state|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Range
+                </strong>
+              </td>
+              <td>{{ result.ip_range|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="text-primary">
+                  <i class="icon-globe m-r"></i>
+                   Classless Inter-Domain Routing
+                </strong>
+              </td>
+              <td>{{ result.cidr|default:'Unknown' }}</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {% endif %}
   </div>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKdFvxJdXLFrQXdbsPVfFrlSit-6_WTIk"></script>
-  <script>
-      {% if result.country or result.country_code %}
-          var COUNTRY_NAME = '{{ result.country|default:result.country_code }}';
-      {% else %}
-          var COUNTRY_NAME = '';
-      {% endif %}
-  </script>
-  <script type="text/javascript" src="/static/js/services/toolset/who_is/map.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}

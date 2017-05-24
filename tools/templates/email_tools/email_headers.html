@@ -12,22 +12,24 @@
             What to do: Paste the headers in the box below,then click "Analyze" and you will see the results below.
           </p>
           <textarea id="id_headers" autofocus name="headers" class="form-control{% if field.errors %} error{% endif %}" required >{{ field.value|default:'' }}</textarea>
-          {% if form.domain.errors %}
+          {% if form.headers.errors %}
           <ol>
-            {% for error in form.domain.errors %}
+            {% for error in form.headers.errors %}
             <li class="field-error"><strong class="text-danger">{{ error|escape }}</strong></li>
             {% endfor %}
           </ol>
           {% endif %}
       </div>
-      <div class="form-group col-xs-12 col-sm-12 col-md-7 col-lg-7">
+      <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button type="submit" class="btn btn-outline btn-success">Search</button>
-        <button type="reset" class="btn btn-outline btn-default" id="reset_button" data-input-id="id_domain">Reset</button>
+        <button type="reset" class="btn btn-outline btn-default" id="reset_button" data-input-id="id_headers">Reset</button>
       </div>
     </form>
 
     {% if not result %}
-        {% include 'email_tools/email_headers_help.html' %}
+    <div class="col-md-12">
+      {% include 'email_tools/email_headers_help.html' %}
+    </div>
     {% else %}
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
       <div class="table-responsive">
