@@ -24,7 +24,7 @@ HTTPHeadersView,DNSSecView, IPLookupView, WhoIsView, NSLookupView )
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', HomePage, name='home'),
+    url(r'^$', HomePage.as_view(), name='home'),
     url(r'^email-headers/$', EmailHeadersView.as_view(), name='email-headers'),
     url(r'^email-abuse-info/$', AbuseEmailView.as_view(), name='email-abuse-info'),
     url(r'^mx-lookup/$', MXLookupView.as_view(), name='mx-lookup'),

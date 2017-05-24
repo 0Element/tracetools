@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.views import View
 from django.views.generic import FormView, TemplateView
 
 from utilities.mixins import FormInvalidRenderMixin, RateLimitMixin
@@ -14,17 +15,17 @@ from .utils import (parse_email_header, get_abuse_tool, get_mx_lookup_tool, get_
 
 from ua_parser import user_agent_parser
 import pprint
-def HomePage(request):
-    template_name = 'home.html'
-    ip = get_client_ip(request)
-    info = get_ip_info(ip)
-    ua = request.META.get('HTTP_USER_AGENT')
-    pp = pprint.PrettyPrinter(indent=4)
-    parsed_string_ua = user_agent_parser.Parse(ua)
-    pp.pprint(parsed_string_ua)
-    user_agent_parser.Parse(request.META.get('HTTP_USER_AGENT'))
+class HomePage(View):
+    def get(self, request):
+        template_name = 'home.html'
+        ip = get_client_ip(self.request)
+        info = get_ip_info(ip)
+        ua = request.META.get('HTTP_USER_AGENT')
+        pp = pprint.PrettyPrinter(indent=4)
+        parsed_string_ua = user_agent_parser.Parse(ua)
+        pp.pprint(parsed_string_ua)
 
-    return render(request, 'home.html', {"user_ip": ip , 'user_info': info, 'user_agent': parsed_string_ua})
+        return render(request, 'home.html', {"user_ip": ip , 'user_info': info, 'user_agent': parsed_string_ua})
 
 class EmailHeadersView(FormInvalidRenderMixin, RateLimitMixin, FormView):
     """
