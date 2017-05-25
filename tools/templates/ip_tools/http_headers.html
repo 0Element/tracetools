@@ -2,10 +2,10 @@
 {% block content %}
 <div class="widget stacked">
   <div class="widget-header">
-    <h3>Get HTTP Headers Tool</h3>
+    <h2 class="widget-header-title">Get HTTP Headers Tool</h2>
   </div>
   <div class="widget-content">
-    <form name="HttpHeaderform" autocomplete="off" method="post" action="/http-headers/">
+    <form name="HttpHeaderform" autocomplete="off" method="post" action="{% url 'http-headers' %}">
       {% csrf_token %}
       <div class="form-group col-xs-12 col-sm-12 col-md-10 col-lg-10">
         <div class="input-group {% if form.domain.errors %}has-error{% endif %}"><span class="input-group-addon"><i class="icon-globe" aria-hidden="true" id="input_icon"></i></span>
@@ -44,7 +44,7 @@
       </div>
     </div>
     {% endif %}
-    
+
   </div>
 </div>
 {% endblock %}

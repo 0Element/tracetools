@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from ua_parser import user_agent_parser
 
 from django.conf import settings
 from django.contrib import messages
@@ -13,19 +14,20 @@ from .utils import (parse_email_header, get_abuse_tool, get_mx_lookup_tool, get_
                     get_http_headers, get_dnssec_tool, get_ip_info, get_who_is, get_ns_tool, get_client_ip )
 
 
-from ua_parser import user_agent_parser
-import pprint
 class HomePage(View):
+    """
+    Home page view
+    """
+
     def get(self, request):
         template_name = 'home.html'
         ip = get_client_ip(self.request)
         info = get_ip_info(ip)
         ua = request.META.get('HTTP_USER_AGENT')
-        pp = pprint.PrettyPrinter(indent=4)
         parsed_string_ua = user_agent_parser.Parse(ua)
-        pp.pprint(parsed_string_ua)
 
         return render(request, 'home.html', {"user_ip": ip , 'user_info': info, 'user_agent': parsed_string_ua})
+
 
 class EmailHeadersView(FormInvalidRenderMixin, RateLimitMixin, FormView):
     """

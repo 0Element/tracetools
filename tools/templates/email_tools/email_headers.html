@@ -2,10 +2,10 @@
 {% block content %}
 <div class="widget stacked">
   <div class="widget-header">
-    <h3>Email Header Analyzer</h3>
+    <h2 class="widget-header-title">Email Header Analyzer</h2>
   </div>
   <div class="widget-content">
-    <form name="analyzeEmailHeaderForm" autocomplete="off" method="post" action="/email-headers/">
+    <form name="analyzeEmailHeaderForm" autocomplete="off" method="post" action="{% url 'email-headers' %}">
       {% csrf_token %}
       <div class="form-group col-md-12">
           <p class="help-block">

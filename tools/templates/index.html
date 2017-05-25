@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <title>Tracetools</title>
-
+  <meta name="description" content="Tracetools">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -22,11 +22,14 @@
 </head>
 
 <body>
+  {% if user.is_staff %}
+    {% include "seo/form.html" %}
+  {% endif %}
 
   <nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'home' %}">Tracetools</a>
+        <a class="navbar-brand" href="{% url 'home' %}"><h1 class="site-title">Tracetools</h1></a>
       </div>
     </div>
   </nav>
@@ -42,51 +45,57 @@
         <div class="collapse subnav-collapse">
           <ul class="mainnav">
 
+            <li class="{% if request.path == '/' %}active{% endif %}">
+              <a href="{% url 'home' %}">
+                <h3 class="menu-titles"><span>Your information</span></h3>
+              </a>
+            </li>
+
             <li class="{% if '/email-headers' in request.path %}active{% endif %}">
               <a href="{% url 'email-headers' %}">
-                <span>Email Header Analyzer</span>
+                <h3 class="menu-titles"><span>Email Header Analyzer</span>
               </a>
             </li>
 
             <li class="{% if '/email-abuse-info' in request.path %}active{% endif %}">
               <a href="{% url 'email-abuse-info' %}">
-                <span>Abuse Email Lookup</span>
+                <h3 class="menu-titles"><span>Abuse Email Lookup</span>
               </a>
             </li>
 
             <li class="{% if '/mx-lookup' in request.path %}active{% endif %}">
               <a href="{% url 'mx-lookup' %}">
-                <span>MX Lookup</span>
+                <h3 class="menu-titles"><span>MX Lookup</span>
               </a>
             </li>
 
             <li class="{% if '/ip-lookup' in request.path %}active{% endif %}">
               <a href="{% url 'ip-lookup' %}">
-                <span>Look up IP address</span>
+                <h3 class="menu-titles"><span>Look up IP address</span>
               </a>
             </li>
 
             <li class="{% if '/who-is' in request.path %}active{% endif %}">
               <a href="{% url 'who-is' %}">
-                <span>Reverse Whois Lookup</span>
+                <h3 class="menu-titles"><span>Reverse Whois Lookup</span>
               </a>
             </li>
 
             <li class="{% if '/http-headers' in request.path %}active{% endif %}">
               <a href="{% url 'http-headers' %}">
-                <span>Get HTTP Headers Tool</span>
+                <h3 class="menu-titles"><span>Get HTTP Headers Tool</span>
               </a>
             </li>
 
             <li class="{% if '/dns-sec' in request.path %}active{% endif %}">
               <a href="{% url 'dns-sec' %}">
-                <span>DNSsec Tool</span>
+                <h3 class="menu-titles"><span>DNSsec Tool</span>
               </a>
             </li>
 
             <li class="{% if '/ns-lookup' in request.path %}active{% endif %}">
               <a href="{% url 'ns-lookup' %}">
-                <span>Reverse NS Tool</span>
+                <h3 class="menu-titles"><span>Reverse NS Tool</span>
               </a>
             </li>
 
@@ -111,29 +120,32 @@
       <div class="row">
         <div class="col-md-3 hidden-sm hidden-xs">
           <div class="list-group">
+            <a href="{% url 'home' %}" class="list-group-item {% if request.path == '/' %}active{% endif %}">
+              <h3 class="menu-titles">Your information</h3>
+            </a>
             <a href="{% url 'email-headers' %}" class="list-group-item {% if '/email-headers' in request.path %}active{% endif %}">
-              Email Header Analyzer
+              <h3 class="menu-titles">Email Header Analyzer</h3>
             </a>
             <a href="{% url 'email-abuse-info' %}" class="list-group-item {% if '/email-abuse-info' in request.path %}active{% endif %}">
-              Abuse Email Lookup
+              <h3 class="menu-titles">Abuse Email Lookup</h3>
             </a>
             <a href="{% url 'mx-lookup' %}" class="list-group-item {% if '/mx-lookup' in request.path%}active{% endif %}">
-              MX Lookup
+              <h3 class="menu-titles">MX Lookup</h3>
             </a>
             <a href="{% url 'ip-lookup' %}" class="list-group-item {% if '/ip-lookup' in request.path %}active{% endif %}">
-              Look up IP address
+              <h3 class="menu-titles">Look up IP address</h3>
             </a>
             <a href="{% url 'who-is' %}" class="list-group-item {% if '/who-is' in request.path %}active{% endif %}">
-              Reverse Whois Lookup
+              <h3 class="menu-titles">Reverse Whois Lookup</h3>
             </a>
             <a href="{% url 'http-headers' %}" class="list-group-item {% if '/http-headers' in request.path %}active{% endif %}">
-              Get HTTP Headers Tool
+              <h3 class="menu-titles">Get HTTP Headers Tool</h3>
             </a>
             <a href="{% url 'dns-sec' %}" class="list-group-item {% if '/dns-sec' in request.path %}active{% endif %}">
-              DNSsec Tool
+              <h3 class="menu-titles">DNSsec Tool</h3>
             </a>
             <a href="{% url 'ns-lookup' %}" class="list-group-item {% if '/ns-lookup' in request.path %}active{% endif %}">
-              Reverse NS Tool
+              <h3 class="menu-titles">Reverse NS Tool</h3>
             </a>
           </div>
         </div>

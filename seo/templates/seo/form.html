@@ -1,0 +1,63 @@
+<div id="seoForm" style="background:#ccc;position:fixed;top:0;z-index:10000;left:0;border:1px gray solid;width:100%;height:150px;display:none;">
+    <input type="button" onclick="seoToggle(false);" value="CLOSE BLOCK"/>
+    <form method="post" name="seoDataForm" onsubmit="return seoSaveForm(event);">
+      {% csrf_token %}
+        <div>URL: <span id="seoDataUrl" style="font-weight:bold;"></span></div>
+        <input type="text" name="title_tag" value="" placeholder="title tag" /> title:<br />
+        <input type="text" name="meta_description" value="" placeholder="meta description" /> description<br />
+        <input type="text" name="page_h1" value="" placeholder="page h1" /> h1<br />
+        <input type="submit" value="SAVE" />
+    </form>
+</div>
+<input style="position:fixed;left:0;top:0;border:1px gray solid;z-index:10000;"
+    value="SEO OPEN BLOCK" type="button" onclick="seoToggle(true);" id="seoToggleButton" />
+
+<script type="text/javascript">
+var seoOpen = false;
+var seoData = undefined;
+var seoUrl = location.href.trim().replace(location.hostname, "").replace("http://", "");
+document.getElementById('seoDataUrl').innerHTML = seoUrl;
+var seoForm = document.forms['seoDataForm'];
+
+var seoDoToggle = function(status) {
+    if (status) {
+        $('#seoForm').show();
+        $('#seoToggleButton').hide();
+    } else {
+        $('#seoForm').hide();
+        $('#seoToggleButton').show();
+    }
+}
+
+var seoToggle = function(status) {
+    if (typeof seoData === 'undefined') {
+        $.get('/seo/', {url: seoUrl}, function(res){
+            seoData = true;
+            if (res.status) {
+                seoForm.title_tag.value = res.data.title_tag || '';
+                seoForm.meta_description.value = res.data.meta_description || '';
+                seoForm.page_h1.value = res.data.page_h1 || '';
+            }
+            seoDoToggle(true);
+        }, 'json');
+    } else {
+        seoDoToggle(status);
+    }
+};
+var seoSaveForm = function(event) {
+
+    event.preventDefault();
+    console.log(seoForm);
+    var data = {title_tag: seoForm.title_tag.value, page_h1: seoForm.page_h1.value,
+        meta_description: seoForm.meta_description.value, url: seoUrl,
+        csrfmiddlewaretoken: seoForm.csrfmiddlewaretoken.value};
+
+    $.post('{% url 'seo:index' %}', data, function(res){
+
+        if (res.status) {
+            seoDoToggle(false);
+        }
+    }, 'json');
+    return false;
+};
+</script>

@@ -3,10 +3,10 @@
 
 <div class="widget stacked">
   <div class="widget-header">
-    <h3>MX Lookup</h3>
+    <h2 class="widget-header-title">MX Lookup</h2>
   </div>
   <div class="widget-content">
-    <form name="MxForm" autocomplete="off" method="post" action="/mx-lookup/">
+    <form name="MxForm" autocomplete="off" method="post" action="{% url 'mx-lookup' %}">
       {% csrf_token %}
       <div class="form-group col-xs-12 col-sm-12 col-md-10 col-lg-10">
         <div class="input-group {% if form.domain.errors %}has-error{% endif %}"><span class="input-group-addon"><i class="icon-globe" aria-hidden="true" id="input_icon"></i></span>

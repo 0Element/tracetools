@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'tools',
+    'seo',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'seo.middleware.SeoMiddleware',
 ]
 
 ROOT_URLCONF = 'toolset.urls'
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'toolset.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['tools/templates'],
+        'DIRS': ['tools/templates','seo/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
