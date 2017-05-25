@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load staticfiles %}
+
 {% block content %}
 <div class="widget stacked">
   <div class="widget-header">
@@ -271,3 +272,12 @@
   </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+       $('#reset_button').click(function () {
+           $('#' + $(this).data('input-id')).val('');
+           return false;
+       });
+    </script>
+{% endblock extra_js %}

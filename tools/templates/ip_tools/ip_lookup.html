@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load staticfiles %}
+
 {% block content %}
 <div class="widget stacked">
   <div class="widget-header">
@@ -163,13 +164,19 @@
 </div>
 {% endblock %}
 {% block extra_js %}
-  {% if result%}
-<script>
-  var LAT = '{{ result.lat }}';
-  var LONG = '{{ result.long }}';
-</script>
-<script type="text/javascript" src="{% static 'js/ip_lookup/map.js'%}"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAPS_KEY}}&callback=initMap">
+  <script type="text/javascript">
+     $('#reset_button').click(function () {
+         $('#' + $(this).data('input-id')).val('');
+         return false;
+     });
   </script>
+  {% if result%}
+    <script>
+      var LAT = '{{ result.lat }}';
+      var LONG = '{{ result.long }}';
+    </script>
+    <script type="text/javascript" src="{% static 'js/ip_lookup/map.js'%}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAPS_KEY}}&callback=initMap">
+    </script>
   {% endif %}
 {% endblock extra_js %}

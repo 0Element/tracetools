@@ -16,6 +16,7 @@
   <link href="{% static 'css/base-admin-3.css' %}" rel="stylesheet">
   <link href="{% static 'css/base-admin-3-responsive.css' %}" rel="stylesheet">
   <link href="{% static 'css/pages/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/msgGrowl.css' %}" rel="stylesheet">
   <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
   {% block extra_css %}{% endblock extra_css %}
@@ -196,7 +197,6 @@
   <!-- Le javascript
 ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  {% block extra_js %}{% endblock extra_js %}
   <script src="{% static 'js/libs/jquery-1.9.1.min.js' %} "></script>
   <script src="{% static 'js/libs/jquery-ui-1.10.0.custom.min.js' %} "></script>
   <script src="{% static 'js/libs/bootstrap.min.js' %} "></script>
@@ -206,7 +206,24 @@
   <script src="{% static 'js/Application.js' %} "></script>
   <script src="{% static 'js/charts/area.js' %} "></script>
   <script src="{% static 'js/charts/donut.js' %} "></script>
+  <script src="{% static 'js/plugins/msgGrowl/msgGrowl.js' %} "></script>
+  <script src="{% static 'js/custom.js' %} "></script>
+  {% if messages%}
+    {% for msg in messages %}
+    <script>
+        var errorMes = $('.demo_type').data('value');
+        console.log(errorMes);
+        $.msgGrowl ({
+          type: 'error'
+          , title: 'Error'
+          , text: '{{msg.message}}'
+          , position: 'top-center'
+        });
 
+    </script>
+    {% endfor %}
+  {% endif %}
+  {% block extra_js %}{% endblock extra_js %}
 </body>
 
 </html>

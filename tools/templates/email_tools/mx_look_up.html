@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
-{% block content %}
 
+{% block content %}
 <div class="widget stacked">
   <div class="widget-header">
     <h2 class="widget-header-title">MX Lookup</h2>
@@ -50,3 +50,12 @@
 </div>
 
 {% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+       $('#reset_button').click(function () {
+           $('#' + $(this).data('input-id')).val('');
+           return false;
+       });
+    </script>
+{% endblock extra_js %}
