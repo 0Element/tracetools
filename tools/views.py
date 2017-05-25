@@ -4,7 +4,8 @@ from ua_parser import user_agent_parser
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.views import View
 from django.views.generic import FormView, TemplateView
 
@@ -164,3 +165,15 @@ class NSLookupView(FormInvalidRenderMixin, RateLimitMixin, FormView):
         context = self.get_context_data()
         context['result'] = info
         return self.render_to_response(context)
+
+
+def handler404(request):
+    response = render_to_response('404.html', {}, RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('500.html', {}, RequestContext(request))
+    response.status_code = 500
+    return response

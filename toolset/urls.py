@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.conf.urls import include, url
 from django.contrib import admin
 from tools.views import ( HomePage, EmailHeadersView, AbuseEmailView, MXLookupView,
-HTTPHeadersView,DNSSecView, IPLookupView, WhoIsView, NSLookupView )
+HTTPHeadersView,DNSSecView, IPLookupView, WhoIsView, NSLookupView, handler404, handler500 )
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
