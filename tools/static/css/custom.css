@@ -1,5 +1,6 @@
 body {
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .main{
@@ -56,4 +57,12 @@ div.panel.col-md-12 {
 
 div#map1 {
   margin-bottom: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .banner-container {
+    float: none !important;
+    margin: 10px auto;
+    margin-bottom: 20px;
+  }
 }

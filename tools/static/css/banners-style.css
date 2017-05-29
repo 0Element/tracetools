@@ -1,0 +1,430 @@
+.banner-link, .banner-link:active, .banner-link:hover {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+}
+
+.banner-container {
+  display: block;
+  position: relative;
+  height: 280px;
+  width: 336px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.banner-img, .banner-2-img {
+  display: block;
+  position: absolute;
+  height: 280px;
+  width: 336px;
+  left: -340px;
+  background: url('../img/banner_1_img.jpg') no-repeat ;
+  background-size: auto 100%;
+  background-position: left top;
+  z-index: 5;
+  animation: banner-img-an 6s linear both infinite 1s;
+}
+
+@keyframes banner-img-an {
+  7% {
+    left: -340px;
+  }
+  17% {
+    left: 0;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+
+.banner-bg {
+  display:block;
+  position:absolute;
+  left: -300px;
+  border-top: 220px solid black;
+  border-bottom: 60px solid black;
+  border-left: 140px solid black;
+  border-right: 70px solid rgba(255, 255, 255, 0);
+  z-index: 10;
+  animation: banner-bg-an 6s linear both infinite 1s;
+}
+
+@keyframes banner-bg-an {
+  0% {
+    left: -300px;
+  }
+  10% {
+    left: 0;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.banner-logo , .banner-title , .banner-text {
+  display: block;
+  position: absolute;
+  z-index: 15;
+  color: #fff;
+  left: 15px;
+}
+
+.banner-logo {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 700;
+  top: 30px;
+  opacity: 0;
+  animation: banner-logo-an 6s linear forwards infinite 1s;
+}
+@keyframes banner-logo-an {
+    51% {
+      top: 30px;
+      opacity: 0;
+    }
+    59% {
+      top: 20px;
+      opacity: 1;
+    }
+    100% {
+      top: 20px;
+      opacity: 1;
+    }
+}
+
+.banner-title {
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 300;
+  opacity: 0;
+}
+
+.banner-title-1 {
+  animation: banner-title-1-an 6s linear forwards infinite 1s;
+}
+@keyframes banner-title-1-an {
+  17%{
+    top: 80px;
+    opacity: 0;
+  }
+  24%{
+    top: 60px;
+    opacity: 1;
+  }
+  100%{
+    top: 60px;
+    opacity: 1;
+  }
+}
+
+.banner-title-2 {
+  font-size: 38px;
+  font-weight: 400;
+  color: #187ad4;
+  animation: banner-title-2-an 6s linear forwards infinite 1s;
+
+}
+@keyframes banner-title-2-an {
+  24%{
+    top: 110px;
+    opacity: 0;
+  }
+  31%{
+    top: 90px;
+    opacity: 1;
+  }
+  100%{
+    top: 90px;
+    opacity: 1;
+  }
+}
+
+.banner-title-3 {
+  animation: banner-title-3-an 6s linear forwards infinite 1s;
+}
+@keyframes banner-title-3-an {
+  31%{
+    top: 150px;
+    opacity: 0;
+  }
+  38%{
+    top: 130px;
+    opacity: 1;
+  }
+  100%{
+    top: 130px;
+    opacity: 1;
+  }
+}
+
+.banner-line {
+  display: block;
+  position: absolute;
+  height: 2px;
+  left: 6px;
+  top: 175px;
+  border-left: 25px solid #fff;
+  border-right: 45px solid #187ad4;
+  z-index: 15;
+  opacity: 0;
+  animation: banner-line-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-line-an {
+  38%{
+    left: 6px;
+    opacity: 0;
+  }
+  42%{
+    left: 12px;
+    opacity: 1;
+  }
+  100%{
+    left: 12px;
+    opacity: 1;
+  }
+}
+
+.banner-text {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 300;
+  top: 170px;
+  opacity: 0;
+  animation: banner-text-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-text-an {
+  42%{
+    top: 170px;
+    opacity: 0;
+  }
+  51%{
+    top: 190px;
+    opacity: 1;
+  }
+  100%{
+    top: 190px;
+    opacity: 1;
+  }
+}
+
+.banner-btn {
+  display: block;
+  position: absolute;
+  padding: 3px 8px;
+  left: 15px;
+  opacity: 0;
+  bottom: 20px;
+  background-color: #187ad4;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  z-index: 15;
+  animation: banner-btn-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-btn-an {
+  59%{
+    opacity: 0;
+    bottom: 20px;
+  }
+  67%{
+    opacity: 1;
+    bottom: 10px;
+  }
+  100%{
+    opacity: 1;
+    bottom: 10px;
+  }
+}
+
+.banner-2-img {
+  left: 340px;
+  background: url('../img/banner_2_img.jpg') no-repeat ;
+  background-size: auto 100%;
+  background-position: left top;
+  animation: banner-2-img-an 6s linear both infinite 1s;
+}
+
+@keyframes banner-2-img-an {
+  7% {
+    left: 340px;
+  }
+  17% {
+    left: 0;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.banner-2-bg {
+  display:block;
+  position:absolute;
+  left: 0;
+  width: 180px;
+  border-top: 280px solid #fff;
+  border-right: 30px solid transparent;
+  z-index: 10;
+  opacity: 0;
+  animation: banner-2-bg-an 6s linear both infinite 1s;
+}
+
+@keyframes banner-2-bg-an {
+  17% {
+    opacity: 0;
+  }
+  24% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.banner-2-logo , .banner-2-title , .banner-2-text, .banner-2-btn {
+  display: block;
+  position: absolute;
+  z-index: 15;
+  color: #000;
+  left: 10px;
+}
+
+.banner-2-logo {
+  font-size: 22px;
+  line-height: 24px;
+  font-weight: 700;
+  top: 20px;
+  opacity: 0;
+  color: #6253a2;
+  padding-left: 20px;
+  background: url('../img/downtime_logo.png') no-repeat ;
+  background-size: auto 100%;
+  background-position: left top;
+  animation: banner-2-logo-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-2-logo-an {
+    24% {
+      top: 20px;
+      opacity: 0;
+    }
+    28% {
+      top: 40px;
+      opacity: 1;
+    }
+    31% {
+      top: 30px;
+      opacity: 1;
+    }
+    100% {
+      top: 30px;
+      opacity: 1;
+    }
+}
+
+.banner-2-title {
+  font-size: 28px;
+  line-height: 30px;
+  opacity: 0;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.banner-2-title-first {
+  top: 80px;
+  left: 50px;
+  animation: banner-2-title-first-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-2-title-first-an {
+    31% {
+      left: 50px;
+      opacity: 0;
+    }
+    36% {
+      left: 10px;
+      opacity: 1;
+    }
+    100% {
+      left: 10px;
+      opacity: 1;
+    }
+}
+
+.banner-2-title-second {
+  top: 115px;
+  left: -30px;
+  color: #6253a2;
+  animation: banner-2-title-second-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-2-title-second-an {
+    31% {
+      left: -30px;
+      opacity: 0;
+    }
+    36% {
+      left: 10px;
+      opacity: 1;
+    }
+    100% {
+      left: 10px;
+      opacity: 1;
+    }
+}
+
+.banner-2-text {
+  top: 160px;
+  font-size: 15px;
+  transform: scaleX(1);
+  line-height: 17px;
+  color: #737373;
+  opacity: 0;
+  animation: banner-2-text-an 6s ease-out forwards infinite 1s;
+}
+
+@keyframes banner-2-text-an {
+    36% {
+      transform: scaleX(1.75);
+      opacity: 0;
+    }
+    42% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+}
+
+.banner-2-btn {
+  display: block;
+  position: absolute;
+  padding: 4px 15px;
+  left: 15px;
+  opacity: 0;
+  bottom: 20px;
+  background-color: #6253a2;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #fff;
+  z-index: 15;
+  animation: banner-2-btn-an 6s ease-out forwards infinite 1s;
+}
+@keyframes banner-2-btn-an {
+  42%{
+    opacity: 0;
+    bottom: 40px;
+  }
+  50%{
+    opacity: 1;
+    bottom: 20px;
+  }
+  100%{
+    opacity: 1;
+    bottom: 20px;
+  }
+}

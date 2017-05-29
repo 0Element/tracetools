@@ -17,6 +17,7 @@
   <link href="{% static 'css/base-admin-3-responsive.css' %}" rel="stylesheet">
   <link href="{% static 'css/pages/dashboard.css' %}" rel="stylesheet">
   <link href="{% static 'css/msgGrowl.css' %}" rel="stylesheet">
+  <link href="{% static 'css/banners-style.css' %}" rel="stylesheet">
   <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
   {% block extra_css %}{% endblock extra_css %}
@@ -156,13 +157,13 @@
         </div>
       </div>
       <!-- /row -->
-
+      <div class="row">
+          {% include 'banner.html' %}
+      </div>
     </div>
     <!-- /container -->
-
   </div>
   <!-- /main -->
-
 
 
   <div class="footer">
