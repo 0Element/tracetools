@@ -3,3 +3,4 @@
 *local.py
 .env
 CACHE
+logs/*
