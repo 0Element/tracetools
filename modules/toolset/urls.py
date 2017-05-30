@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include, url
 from django.contrib import admin
-from tools.views import ( HomePage, EmailHeadersView, AbuseEmailView, MXLookupView,
+from modules.tools.views import ( HomePage, EmailHeadersView, AbuseEmailView, MXLookupView,
 HTTPHeadersView,DNSSecView, IPLookupView, WhoIsView, NSLookupView, handler404, handler500 )
 
 urlpatterns = [
@@ -34,6 +34,6 @@ urlpatterns = [
     url(r'^ip-lookup/$', IPLookupView.as_view(), name='ip-lookup'),
     url(r'^who-is/$', WhoIsView.as_view(), name='who-is'),
     url(r'^ns-lookup/$', NSLookupView.as_view(), name='ns-lookup'),
-    url(r'^seo/', include('seo.urls', namespace='seo')),
+    url(r'^seo/', include('modules.seo.urls', namespace='seo')),
 
 ]

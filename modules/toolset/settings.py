@@ -14,7 +14,7 @@ import os
 from django.conf import global_settings
 
 try:
-    from toolset.settingslocal import *
+    from modules.toolset.settingslocal import *
 except ImportError:
     pass
 
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    'tools',
-    'seo',
+    'modules.tools',
+    'modules.seo',
 ]
 
 MIDDLEWARE = [
@@ -50,15 +50,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'seo.middleware.SeoMiddleware',
+    'modules.seo.middleware.SeoMiddleware',
 ]
 
-ROOT_URLCONF = 'toolset.urls'
+ROOT_URLCONF = 'modules.toolset.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['tools/templates','seo/templates'],
+        'DIRS': ['modules/tools/templates','modules/seo/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,13 +66,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'tools.context_processor.toolset_proc',
+                'modules.tools.context_processor.toolset_proc',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'toolset.wsgi.application'
+WSGI_APPLICATION = 'modules.toolset.wsgi.application'
 
 
 # Database
