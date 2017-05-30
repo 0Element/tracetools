@@ -14,7 +14,7 @@ import os
 from django.conf import global_settings
 
 try:
-    from modules.toolset.settingslocal import *
+    from configs.settingslocal import *
 except ImportError:
     pass
 
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'modules.seo.middleware.SeoMiddleware',
 ]
 
-ROOT_URLCONF = 'modules.toolset.urls'
+ROOT_URLCONF = 'modules.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'modules.toolset.wsgi.application'
+WSGI_APPLICATION = 'configs.wsgi.application'
 
 
 # Database
@@ -127,4 +127,4 @@ COMPRESS_ROOT = os.path.join(os.path.dirname(__file__), '..', '/static_test/')
 COMPRESS_ENABLED = False
 
 # GEOIP2 Settings
-GEOIP_PATH = os.path.join(BASE_DIR, 'toolset/geoip')
+GEOIP_PATH = os.path.join(BASE_DIR, 'configs', 'geoip')
