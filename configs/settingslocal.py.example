@@ -18,6 +18,8 @@ DBS = {
     }
 }
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 GOOGLE_MAPS_KEY = '0000000000000000000000000000000000000000'
 
 ZERO_DOWNTIME_LINK = 'https://zeroelement.com'
