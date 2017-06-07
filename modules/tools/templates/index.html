@@ -50,7 +50,7 @@
 
             <li class="{% if request.path == '/' %}active{% endif %}">
               <a href="{% url 'home' %}">
-                <h3 class="menu-titles"><span>Your information</span></h3>
+                <h3 class="menu-titles"><span>Your IP Address</span></h3>
               </a>
             </li>
 
@@ -121,10 +121,13 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs">
+        <div class="col-md-9 col-sm-12 col-xs-12">
+          {% block content %}{% endblock %}
+        </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
           <div class="list-group">
             <a href="{% url 'home' %}" class="list-group-item {% if request.path == '/' %}active{% endif %}">
-              <h3 class="menu-titles">Your information</h3>
+              <h3 class="menu-titles">Your IP Address</h3>
             </a>
             <a href="{% url 'email-headers' %}" class="list-group-item {% if '/email-headers' in request.path %}active{% endif %}">
               <h3 class="menu-titles">Email Header Analyzer</h3>
@@ -151,10 +154,6 @@
               <h3 class="menu-titles">Reverse NS Tool</h3>
             </a>
           </div>
-        </div>
-
-        <div class="col-md-9 col-sm-12 col-xs-12">
-          {% block content %}{% endblock %}
         </div>
       </div>
       <!-- /row -->
