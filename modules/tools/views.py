@@ -24,8 +24,11 @@ class HomePage(View):
         template_name = 'home.html'
         ip = get_client_ip(self.request)
         info = get_ip_info(ip)
-        ua = request.META.get('HTTP_USER_AGENT')
-        parsed_string_ua = user_agent_parser.Parse(ua)
+        ua = request.META.get('HTTP_USER_AGENT', None)
+        if ua is not None and ua != "":
+            parsed_string_ua = user_agent_parser.Parse(ua)
+        else:
+            parsed_string_ua = "Unknown"
 
         return render(request, 'home.html', {"user_ip": ip , 'user_info': info, 'user_agent': parsed_string_ua})
 
