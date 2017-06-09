@@ -59,6 +59,21 @@ div#map1 {
   margin-bottom: 30px;
 }
 
+.navbar-header {
+  width: 100%;
+}
+
+.p-t-15 {
+  padding-top: 15px;
+}
+.subnav-toggle {
+  font-size: 25px;
+  text-align: center;
+  color: #ff9900;
+  text-decoration: none !important;
+  padding: 15px;
+}
+
 @media screen and (max-width: 767px) {
   .banner-container {
     float: none !important;

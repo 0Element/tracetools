@@ -33,6 +33,12 @@
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href="{% url 'home' %}"><h1 class="site-title">Tracetools</h1></a>
+        <div class="visible-sm visible-xs pull-right p-t-15">
+          <a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <i class="icon-reorder"></i>
+          </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -40,11 +46,6 @@
   <div class="subnavbar visible-sm visible-xs">
     <div class="subnavbar-inner">
       <div class="container">
-        <a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <i class="icon-reorder"></i>
-        </a>
-
         <div class="collapse subnav-collapse">
           <ul class="mainnav">
 
@@ -56,49 +57,49 @@
 
             <li class="{% if '/email-headers' in request.path %}active{% endif %}">
               <a href="{% url 'email-headers' %}">
-                <h3 class="menu-titles"><span>Email Header Analyzer</span>
+                <h3 class="menu-titles"><span>Email Header Analyzer</span></h3>
               </a>
             </li>
 
             <li class="{% if '/email-abuse-info' in request.path %}active{% endif %}">
               <a href="{% url 'email-abuse-info' %}">
-                <h3 class="menu-titles"><span>Abuse Email Lookup</span>
+                <h3 class="menu-titles"><span>Abuse Email Lookup</span></h3>
               </a>
             </li>
 
             <li class="{% if '/mx-lookup' in request.path %}active{% endif %}">
               <a href="{% url 'mx-lookup' %}">
-                <h3 class="menu-titles"><span>MX Lookup</span>
+                <h3 class="menu-titles"><span>MX Lookup</span></h3>
               </a>
             </li>
 
             <li class="{% if '/ip-lookup' in request.path %}active{% endif %}">
               <a href="{% url 'ip-lookup' %}">
-                <h3 class="menu-titles"><span>Look up IP address</span>
+                <h3 class="menu-titles"><span>Look up IP address</span></h3>
               </a>
             </li>
 
             <li class="{% if '/who-is' in request.path %}active{% endif %}">
               <a href="{% url 'who-is' %}">
-                <h3 class="menu-titles"><span>Reverse Whois Lookup</span>
+                <h3 class="menu-titles"><span>Reverse Whois Lookup</span></h3>
               </a>
             </li>
 
             <li class="{% if '/http-headers' in request.path %}active{% endif %}">
               <a href="{% url 'http-headers' %}">
-                <h3 class="menu-titles"><span>Get HTTP Headers Tool</span>
+                <h3 class="menu-titles"><span>Get HTTP Headers Tool</span></h3>
               </a>
             </li>
 
             <li class="{% if '/dns-sec' in request.path %}active{% endif %}">
               <a href="{% url 'dns-sec' %}">
-                <h3 class="menu-titles"><span>DNSsec Tool</span>
+                <h3 class="menu-titles"><span>DNSsec Tool</span></h3>
               </a>
             </li>
 
             <li class="{% if '/ns-lookup' in request.path %}active{% endif %}">
               <a href="{% url 'ns-lookup' %}">
-                <h3 class="menu-titles"><span>Reverse NS Tool</span>
+                <h3 class="menu-titles"><span>Reverse NS Tool</span></h3>
               </a>
             </li>
 
